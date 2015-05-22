@@ -50,7 +50,6 @@ class FindUser(object):
 
     def __init__(self, access_key=None, secret_key=None):
         self.CONN = iam.IAMConnection(aws_access_key_id=access_key, aws_secret_access_key=secret_key)
-        self.KEY_OWNER = None
 
     def find_user(self, target_key):
         """
@@ -84,3 +83,11 @@ if __name__ == '__main__':
     except SchemaError as e:
         exit('Error validating inputs please ensure that the target key is in the correct format and that an AWS '
              'credentials file exists at the default location or the access key and secret key are provided as parameters')
+
+    find_user = FindUser(access_key=args.get('--key_id'), secret_key=args.get('--secret_key'))
+    key_owner = find_user.find_user(args.get('<target_key>'))
+    if key_owner:
+        print "The access key {} has been identified to belonging to user {}.".format(args.get('<target_key>'),
+                                                                                     key_owner)
+    else:
+        print "Unable to match access key {} to an AWS IAM user.".format(args.get('<target_key>'))
