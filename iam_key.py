@@ -49,8 +49,6 @@ def validate_keys(key, length):
 if __name__ == '__main__':
     arguments = docopt(__doc__, version="0.1.0")
 
-    credential_path = os.path.expanduser('~/.aws/credentials')
-
     schema = Schema({
         '<target_key>': lambda x: len(x) == 20,
         '--key_id': lambda x: validate_keys(x, 20),
