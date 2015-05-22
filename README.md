@@ -22,5 +22,5 @@ python iam_key.py <target_key>
 Alternatively you may pass the your aws_access_key_id and aws_secret_key_id as parameters
 
 ```bash
-python iam_key.py <target_key> --access_key=<aws_access_key_id> --secret_key=<aws_secret_key_id>
+python iam_key.py <target_key> --key_id=<aws_access_key_id> --secret_key=<aws_secret_key_id>
 ```
