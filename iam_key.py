@@ -46,6 +46,30 @@ def validate_keys(key, length):
         return os.path.exists(os.path.expanduser('~/.aws/credentials'))
 
 
+class FindUser(object):
+
+    def __init__(self, access_key=None, secret_key=None):
+        self.CONN = iam.IAMConnection(aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+        self.KEY_OWNER = None
+
+    def find_user(self, target_key):
+        """
+        Return the user of a target key if they can be found, else return None.
+        :param target_key: String aws_access_key_id to be queried.
+        :return: String or None
+        """
+        users = self.CONN.get_all_users().get('list_users_response').get('list_users_result').get('users')
+        for user in users:
+            user_keys = self.CONN.get_all_access_keys(user.user_name)\
+                .get('list_access_keys_response')\
+                .get('list_access_keys_result')\
+                .get('access_key_metadata')
+            for key in user_keys:
+                if key.access_key_id == target_key:
+                    return user.user_name
+        return None
+
+
 if __name__ == '__main__':
     arguments = docopt(__doc__, version="0.1.0")
 
