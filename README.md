@@ -3,7 +3,7 @@ A simple script to identify the the IAM user associated with an aws_access_key.
 
 ## Installation
 This script was designed to be used from the command line, ideally in a virtual environment. To install 
-the depdendancies navigate to the root folder of the project and use pip. 
+the depdendencies navigate to the root folder of the project and use pip. 
 
 ```bash
 git clone git@github.com:highsineburgh/find_iam_user.git
